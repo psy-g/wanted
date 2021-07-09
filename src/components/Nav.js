@@ -8,9 +8,14 @@ const Nav = () => {
       <Container>
         <Wrapper>
           <Collection>
-            <Logo>wanted</Logo>
+            <Logo>
+              <LogoLink href="/" title="홈으로 이동">
+                wanted
+              </LogoLink>
+            </Logo>
             <Menu>
-              <StyledLink exact to="/wdlist">
+              메뉴
+              {/* <StyledLink exact to="/wdlist">
                 탐색
               </StyledLink>
               <StyledLink exact to="/events">
@@ -30,7 +35,7 @@ const Nav = () => {
               </StyledLink>
               <StyledLink exact to="/aiscore">
                 Ai 합격예측
-              </StyledLink>
+              </StyledLink> */}
             </Menu>
             <Etc>기타</Etc>
           </Collection>
@@ -57,29 +62,41 @@ const Container = styled.div`
 const Wrapper = styled.div`
   position: relative;
   max-width: 1060px;
-  margin: 0 auto;
   height: 50px;
 `;
 
 // 로고, 메뉴, 기타
 const Collection = styled.nav`
   display: flex;
-  box-align: center;
-  box-pack: justify;
   flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-wrap: wrap;
 `;
 
 // 로고
 const Logo = styled.div`
   display: flex;
+  -webkit-box-align: center;
   align-items: center;
+  -webkit-box-pack: justify;
   justify-content: space-between;
 `;
 
+// 로고 링크
+const LogoLink = styled.a`
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+`;
+
 // 메뉴
-const Menu = styled.ul``;
+const Menu = styled.ul`
+  height: inherit;
+  text-align: center;
+  /* margin: 0; */
+`;
 
 const activeClassName = 'nav-active';
 
