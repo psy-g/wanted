@@ -4,33 +4,89 @@ import Nav from '../components/Nav';
 const NavContainer = () => {
   const overlay = useRef();
   const menu = useRef();
+  const dom = useRef();
   const [check, setCheck] = useState(false);
+  const [logged, setLogged] = useState();
+  const [toggle1, setToggle1] = useState(false);
+  const [toggle2, setToggle2] = useState(false);
 
   const over = (e) => {
-    // console.log('마우스 오버');
-    // console.log('target', e.target.innerText);
+    // console.log('target', dom.current.children[3].children[0].children);
     // console.log('parent', menu.current.children[0].innerText);
     if (e.target.innerText === '탐색') {
       setCheck(true);
     } else {
       setCheck(false);
     }
-
-    // overlay.current.classList.add('show');
   };
 
-  const out = () => {
-    // console.log('마우스 아웃');
-    // setCheck(false);
-    // overlay.current.classList.remove('show');
+  // 회원가입/로그인
+  const login = () => {
+    setLogged(true);
   };
 
-  const menuClick = () => {
-    console.log(';');
+  // 로그아웃
+  const logout = () => {
+    setLogged(false);
+  };
+
+  // 알림
+  const alarm = (e) => {
+    let select = e.target;
+    setCheck(false);
+    setToggle2(false);
+
+    if (toggle1) {
+      setToggle1(false);
+      select.style.color = '#333333';
+      select.style.backgroundColor = '#fff';
+    } else {
+      setToggle1(true);
+      select.style.color = 'white';
+      select.style.backgroundColor = '#36f';
+    }
+  };
+
+  // 프로필
+  const profile = (e) => {
+    let select = e.target;
+    setCheck(false);
+    setToggle1(false);
+
+    if (toggle2) {
+      setToggle2(false);
+      select.style.boxShadow = '0px 0px 2px #888';
+    } else {
+      setToggle2(true);
+      select.style.boxShadow = '0 0 0 2px #36f';
+    }
+  };
+
+  // 검색
+  const searchBtn = () => {
+    let target1 = dom.current.parentElement.children[2].children[0];
+    let target2 = dom.current.parentElement.children[2].children[1];
+    target1.style.display = 'flex';
+    target2.style.display = 'block';
+    console.log('target', target2);
   };
 
   return (
-    <Nav overlay={overlay} over={over} out={out} check={check} menu={menu} />
+    <Nav
+      overlay={overlay}
+      over={over}
+      check={check}
+      menu={menu}
+      login={login}
+      logged={logged}
+      profile={profile}
+      alarm={alarm}
+      toggle1={toggle1}
+      toggle2={toggle2}
+      logout={logout}
+      dom={dom}
+      searchBtn={searchBtn}
+    />
   );
 };
 

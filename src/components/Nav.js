@@ -2,16 +2,28 @@ import React from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-// import burger from '../images/burger.png';
+import Search from '../containers/SearchContainer';
 
-const Nav = ({ overlay, over, out, check, menu }) => {
-  const data = {};
-
-  console.log('check', check);
-
+const Nav = ({
+  overlay,
+  over,
+  check,
+  menu,
+  login,
+  logged,
+  profile,
+  alarm,
+  toggle1,
+  dropdown2,
+  toggle2,
+  logout,
+  dom,
+  searchBtn,
+}) => {
+  // const data = {};
   return (
     <>
-      <Container>
+      <Container ref={dom}>
         <Wrapper>
           <Collection>
             <Logo>
@@ -20,15 +32,10 @@ const Nav = ({ overlay, over, out, check, menu }) => {
                 <button>회원가입하기</button>
               </LogoLink>
             </Logo>
-            <Menu onMouseOver={over} onMouseOut={out} ref={menu}>
+            <Menu onMouseOver={over} ref={menu}>
               {/* 메뉴 */}
               <MenuLi>
-                <StyledLink
-                  exact
-                  to="/wdlist"
-                  // onMouseOver={over}
-                  // onMouseOut={out}
-                >
+                <StyledLink exact to="/wdlist">
                   탐색
                 </StyledLink>
               </MenuLi>
@@ -66,116 +73,386 @@ const Nav = ({ overlay, over, out, check, menu }) => {
 
             <Overlay ref={overlay} check={check}>
               <OverlayContainer check={check}>
-                <div className="container">
-                  <div className="row">
+                {/* <div className="container"> */}
+                <OverlayWrapper>
+                  <OverlayRow>
                     <OverMenu>
-                      <a>
-                        <h2>영업</h2>
-                        {/* <i>화살표</i> */}
+                      <a href="/wdlist/530">
+                        <h2>
+                          영업
+                          <i className="fas fa-chevron-right"></i>
+                        </h2>
                       </a>
-                      <a>
+                      <a href="/wdlist/530/1036">
                         <h3>기업영업</h3>
                       </a>
-                      <a>
+                      <a href="/wdlist/530/766">
                         <h3>외부영업</h3>
                       </a>
-                      <a>
+                      <a href="/wdlist/530/954">
                         <h3>영업 관리자</h3>
                       </a>
-                      <a>
+                      <a href="/wdlist/530/770">
                         <h3>기술영업</h3>
                       </a>
-                      <a>
+                      <a href="/wdlist/530/768">
                         <h3>주요고객사 담당자</h3>
                       </a>
-                      <a>
+                      <a href="/wdlist/530/1035">
                         <h3>솔루션 컨설턴트</h3>
                       </a>
-                      <a>
+                      <a href="/wdlist/530/955">
                         <h3>해외영업</h3>
                       </a>
-                      <a>
-                        <h3>더보기</h3>
+                      <a href="/wdlist/530">
+                        <h3>
+                          더보기
+                          <i className="fas fa-chevron-right"></i>
+                        </h3>
                       </a>
                     </OverMenu>
                     <OverMenu>
-                      <a>
-                        <h2>미디어</h2>
-                        {/* <i>화살표</i> */}
+                      <a href="/wdlist/524">
+                        <h2>
+                          미디어
+                          <i className="fas fa-chevron-right"></i>
+                        </h2>
                       </a>
                     </OverMenu>
                     <OverMenu>
-                      <a>
-                        <h2>인사</h2>
-                        {/* <i>화살표</i> */}
+                      <a href="/wdlist/517">
+                        <h2>
+                          인사
+                          <i className="fas fa-chevron-right"></i>
+                        </h2>
                       </a>
                     </OverMenu>
                     <OverMenu>
-                      <a>
-                        <h2>게임 제작</h2>
-                        {/* <i>화살표</i> */}
+                      <a href="/wdlist/959">
+                        <h2>
+                          게임 제작
+                          <i className="fas fa-chevron-right"></i>
+                        </h2>
                       </a>
                     </OverMenu>
                     <OverMenu>
-                      <a>
-                        <h2>금융</h2>
-                        {/* <i>화살표</i> */}
+                      <a href="/wdlist/513">
+                        <h2>
+                          금융
+                          <i className="fas fa-chevron-right"></i>
+                        </h2>
                       </a>
                     </OverMenu>
                     <OverMenu>
-                      <a>
-                        <h2>금융</h2>
+                      <a href="/wdlist/513">
+                        <h2>엔지니어링·설계</h2>
                       </a>
-                      <a>
+                      <a href="/wdlist/532">
                         <h2>물류·무역</h2>
                       </a>
-                      <a>
+                      <a href="/wdlist/522">
                         <h2>제조·생산</h2>
                       </a>
-                      <a>
+                      <a href="/wdlist/515">
                         <h2>의료·제작·바이오</h2>
                       </a>
-                      <a>
+                      <a href="/wdlist/10101">
                         <h2>교육</h2>
                       </a>
-                      <a>
+                      <a href="/wdlist/521">
                         <h2>법률·법집행기관</h2>
                       </a>
-                      <a>
+                      <a href="/wdlist/10057">
                         <h2>식·음료</h2>
                       </a>
-                      <a>
+                      <a href="/wdlist/509">
                         <h2>건설·시설</h2>
                       </a>
-                      <a>
+                      <a href="/wdlist/514">
                         <h2>공공·복지</h2>
                       </a>
                     </OverMenu>
-                  </div>
-                </div>
+                  </OverlayRow>
+                </OverlayWrapper>
+                {/* </div> */}
               </OverlayContainer>
             </Overlay>
-            {/* {check ? <></> : <NoOverLay />} */}
             <Etc>
-              <ul>
+              <EtcContainer>
                 <li>
-                  <button>검색</button>
+                  <span onClick={searchBtn}>
+                    <i className="fas fa-search"></i>
+                  </span>
                 </li>
-                <li>
-                  <button>회원가입/로그인</button>
-                </li>
+                {/* {!logged && (
+                  <li>
+                    <button onClick={login}>회원가입/로그인</button>
+                  </li>
+                )} */}
+                {!logged ? (
+                  <>
+                    <li>
+                      <button onClick={login}>
+                        회원가입&nbsp;&nbsp;&nbsp;/
+                      </button>
+                    </li>
+                    <li>
+                      <button onClick={login}>로그인</button>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li>
+                      <span onClick={alarm}>
+                        <i className="far fa-bell"></i>
+                      </span>
+                      {/* {toggle1 && (
+                        <Dropdown1>
+                          <div>
+                            <ul>
+                              <li>알림창</li>
+                              <li></li>
+                              <li></li>
+                              <li></li>
+                            </ul>
+                          </div>
+                          <div></div>
+                        </Dropdown1>
+                      )} */}
+                    </li>
+                    <li>
+                      <span onClick={profile}>
+                        <i className="far fa-user"></i>
+                      </span>
+                      {/* {toggle2 && (
+                        <Dropdown2>
+                          <div>
+                            <ul>
+                              <li>
+                                <a href="/mywanted">
+                                  <span>MY 원티드</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/mywanted">
+                                  <span>프로필</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/mywanted">
+                                  <span>지원 현황</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/mywanted">
+                                  <span>제안받기 현황</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/mywanted">
+                                  <span>좋아요</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/mywanted">
+                                  <span>북마크</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/mywanted">
+                                  <span>추천</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/mywanted">
+                                  <span>포인트</span>
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/mywanted">
+                                  <span>로그아웃</span>
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                          <div></div>
+                        </Dropdown2>
+                      )} */}
+                    </li>
+                  </>
+                )}
                 <li>
                   <a href="/dashboard">기업 서비스</a>
                 </li>
                 <li>
-                  <button>모바일</button>
+                  <button>
+                    <i className="fas fa-bars"></i>
+                  </button>
                 </li>
-              </ul>
+              </EtcContainer>
+              {toggle1 && (
+                <Dropdown1>
+                  <div>
+                    <ul>
+                      <li>
+                        <a href="/status">
+                          <span>
+                            <p>지원</p>
+                            <p>
+                              제출한 이력서를 원티드 채용담당자가 확인했습니다.
+                              조금만 기다려주세요.
+                            </p>
+                            <p>2021.07.09(금)</p>
+                          </span>
+                        </a>
+                      </li>
+                      <hr></hr>
+                      <li>
+                        <a href="/status">
+                          <span>
+                            <p>지원</p>
+                            <p>
+                              제출한 이력서를 원티드 채용담당자가 확인했습니다.
+                              조금만 기다려주세요.
+                            </p>
+                            <p>2021.07.09(금)</p>
+                          </span>
+                        </a>
+                      </li>
+                      <hr></hr>
+                      <li>
+                        <a href="/status">
+                          <span>
+                            <p>지원</p>
+                            <p>
+                              제출한 이력서를 원티드 채용담당자가 확인했습니다.
+                              조금만 기다려주세요.
+                            </p>
+                            <p>2021.07.09(금)</p>
+                          </span>
+                        </a>
+                      </li>
+                      <hr></hr>
+                      <li>
+                        <a href="/status">
+                          <span>
+                            <p>지원</p>
+                            <p>
+                              제출한 이력서를 원티드 채용담당자가 확인했습니다.
+                              조금만 기다려주세요.
+                            </p>
+                            <p>2021.07.09(금)</p>
+                          </span>
+                        </a>
+                      </li>
+                      <hr></hr>
+                      <li>
+                        <a href="/status">
+                          <span>
+                            <p>지원</p>
+                            <p>
+                              제출한 이력서를 원티드 채용담당자가 확인했습니다.
+                              조금만 기다려주세요.
+                            </p>
+                            <p>2021.07.09(금)</p>
+                          </span>
+                        </a>
+                      </li>
+                      <hr></hr>
+                      <li>
+                        <a href="/status">
+                          <span>
+                            <p>지원</p>
+                            <p>
+                              제출한 이력서를 원티드 채용담당자가 확인했습니다.
+                              조금만 기다려주세요.
+                            </p>
+                            <p>2021.07.09(금)</p>
+                          </span>
+                        </a>
+                      </li>
+                      <hr></hr>
+                      <li>
+                        <a href="/status">
+                          <span>
+                            <p>지원</p>
+                            <p>
+                              제출한 이력서를 원티드 채용담당자가 확인했습니다.
+                              조금만 기다려주세요.
+                            </p>
+                            <p>2021.07.09(금)</p>
+                          </span>
+                        </a>
+                      </li>
+                      <hr></hr>
+                    </ul>
+                  </div>
+                  <div></div>
+                </Dropdown1>
+              )}
+              {toggle2 && (
+                <Dropdown2>
+                  <div>
+                    <ul>
+                      <li>
+                        <a href="/mywanted">
+                          <span>MY 원티드</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/profile/matching">
+                          <span>프로필</span>
+                        </a>
+                      </li>
+                      <hr></hr>
+                      <li>
+                        <a href="/status/applications">
+                          <span>지원 현황</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/profile/status">
+                          <span>제안받기 현황</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/profile/likes">
+                          <span>좋아요</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/profile/bookmarks">
+                          <span>북마크</span>
+                        </a>
+                      </li>
+                      <hr></hr>
+                      <li>
+                        <a href="/referral">
+                          <span>추천</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/profile/point">
+                          <span>포인트</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/logout" onClick={logout}>
+                          <span>로그아웃</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <div></div>
+                </Dropdown2>
+              )}
             </Etc>
           </Collection>
         </Wrapper>
       </Container>
       <Space />
+      {/* {search && <Search />} */}
+      <Search />
     </>
   );
 };
@@ -189,7 +466,7 @@ const Container = styled.div`
   width: 100%;
   background-color: #fff;
   box-shadow: 0 1px 0 0 rgb(0 0 0 / 10%);
-  z-index: 100;
+  z-index: 10;
 `;
 
 // Nav Wrapper
@@ -261,13 +538,6 @@ const MenuLi = styled.li`
     padding: 15px;
     vertical-align: middle;
   }
-
-  /* &:after {
-    display: inline-block;
-    vertical-align: middle;
-    height: 100%;
-    content: '';
-  } */
 `;
 
 const activeClassName = 'nav-active';
@@ -278,68 +548,288 @@ const StyledLink = styled(NavLink).attrs({ activeClassName })`
     -webkit-box-shadow: inset 0 -2px #258bf7;
     box-shadow: inset 0 -2px #258bf7;
   }
+
+  &:hover {
+    -webkit-box-shadow: inset 0 -2px #ddd;
+    box-shadow: inset 0 -2px #ddd;
+  }
 `;
 
 // 기타
 const Etc = styled.aside`
   height: 100%;
-  padding: 10px 0;
+  /* padding: 10px 0; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 50px;
+`;
+
+// ETC - Container
+const EtcContainer = styled.ul`
+  height: 100%;
+  width: 300px;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+
+  li {
+    display: flex;
+    align-items: center;
+  }
+
+  li:nth-child(1) {
+    span {
+      i {
+        display: inline-block;
+        border-radius: 60px;
+        padding: 0.3em 0.4em;
+        font-size: 18px;
+      }
+    }
+  }
+
+  li:nth-child(2) {
+    span {
+      i {
+        display: inline-block;
+        border-radius: 60px;
+        padding: 0.3em 0.4em;
+        font-size: 18px;
+      }
+    }
+  }
+
+  li:nth-child(3) {
+    span {
+      i {
+        display: inline-block;
+        border-radius: 60px;
+        box-shadow: 0px 0px 2px #888;
+        padding: 0.3em 0.4em;
+        font-size: 18px;
+      }
+    }
+  }
+
+  li:nth-child(4) {
+    &:before {
+      display: block;
+      content: '';
+      width: 1px;
+      height: 10px;
+      background-color: #e1e2e3;
+      margin: auto 10px;
+    }
+
+    a {
+      font-size: 13px;
+      color: #666;
+      line-height: 30px;
+      height: 30px;
+      border: 1px solid #e1e2e3;
+      border-radius: 15px;
+      padding: 0 10px;
+      margin: 0 0 0 15px;
+      font-weight: 400;
+    }
+  }
+
+  li:nth-child(5) {
+    display: none !important;
+
+    button {
+      i {
+        display: inline-block;
+        border-radius: 60px;
+        box-shadow: 0px 0px 2px #888;
+        padding: 0.3em 0.4em;
+        font-size: 18px;
+      }
+    }
+  }
+`;
+
+// 알림 - 드롭다운
+const Dropdown1 = styled.div`
+  position: absolute;
+  top: 100%;
+  right: 220px;
+  margin-top: 13px;
+  padding: 0 !important;
+  display: block;
+  -webkit-transform: translate(50%, 8px);
+  transform: translate(50%, 8px);
+
+  div:nth-child(1) {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 600px;
+    width: 350px;
+    border-radius: 10px;
+    -webkit-box-shadow: 1px 2px 10px 0 rgb(0 0 0 / 30%);
+    box-shadow: 1px 2px 10px 0 rgb(0 0 0 / 30%);
+    border: 1px solid #cdcdcd;
+    background-color: #fff;
+
+    ul {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+      a {
+        width: 80%;
+      }
+
+      li {
+        width: 100%;
+        min-height: 100px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      p:nth-child(1) {
+        font-size: 12px;
+        font-weight: 500;
+        color: #3a68f9;
+        margin-bottom: 6px;
+        line-height: normal;
+      }
+
+      p:nth-child(2) {
+        overflow: hidden;
+        display: -webkit-box;
+        word-break: break-all;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        font-size: 14px;
+        font-weight: 500;
+        color: #111;
+        line-height: normal;
+        margin-bottom: 7px;
+      }
+
+      p:nth-child(3) {
+        font-size: 12px;
+        color: #767676;
+        margin-top: 4px;
+        font-weight: 400;
+        line-height: normal;
+      }
+    }
+
+    hr {
+      width: 100%;
+      border-top: 1px #888;
+    }
+  }
+
+  div:nth-child(2) {
+    position: absolute;
+    right: 34%;
+    bottom: 100%;
+    height: 11px;
+    overflow: hidden;
+    margin-bottom: -1px;
+    -webkit-transform: translateX(-47px);
+    transform: translateX(-47px);
+
+    &:after {
+      content: '';
+      margin-top: 4px;
+      border: 1px solid #cdcdcd;
+      background-color: #fff;
+      height: 14px;
+      width: 14px;
+      display: block;
+      border-top-right-radius: 30%;
+      -webkit-transform: rotate(-55deg) skewX(-20deg);
+      transform: rotate(-55deg) skewX(-20deg);
+    }
+  }
+`;
+
+// 프로필 - 드롭다운
+const Dropdown2 = styled.div`
+  position: absolute;
+  top: 100%;
+  right: 162px;
+  margin-top: 13px;
+  padding: 0 !important;
+  display: block;
+  -webkit-transform: translate(50%, 8px);
+  transform: translate(50%, 8px);
+
+  div:nth-child(1) {
+    overflow: hidden;
+    height: 400px;
+    width: 194px;
+    border-radius: 10px;
+    -webkit-box-shadow: 1px 2px 10px 0 rgb(0 0 0 / 30%);
+    box-shadow: 1px 2px 10px 0 rgb(0 0 0 / 30%);
+    border: 1px solid #cdcdcd;
+    background-color: #fff;
+  }
+
+  div:nth-child(2) {
+    position: absolute;
+    right: 24%;
+    bottom: 100%;
+    height: 11px;
+    overflow: hidden;
+    margin-bottom: -1px;
+    -webkit-transform: translateX(-47px);
+    transform: translateX(-47px);
+
+    &:after {
+      content: '';
+      margin-top: 4px;
+      border: 1px solid #cdcdcd;
+      background-color: #fff;
+      height: 14px;
+      width: 14px;
+      display: block;
+      border-top-right-radius: 30%;
+      -webkit-transform: rotate(-55deg) skewX(-20deg);
+      transform: rotate(-55deg) skewX(-20deg);
+    }
+  }
 
   ul {
     height: 100%;
-    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
 
-    li {
-      position: relative;
-      display: inline-block;
-      height: 100%;
-      vertical-align: middle;
+  li {
+    width: 100%;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+  }
 
-      button {
-        position: relative;
-        margin-top: 5px;
-        font-weight: 600;
-        line-height: 1;
-        padding: 0 10px;
-        height: 100%;
-        margin-right: 6px;
-      }
-
-      a {
-        display: inline-block;
-        vertical-align: bottom;
-        font-size: 13px;
-        color: #666;
-        line-height: 30px;
-        height: 30px;
-        border: 1px solid #e1e2e3;
-        border-radius: 15px;
-        padding: 0 10px;
-        margin: 0 0 0 15px;
-        font-weight: 400;
-      }
-
-      &:nth-child(3) {
-        display: inline-flex;
-
-        &:before {
-          display: block;
-          content: '';
-          width: 1px;
-          height: 10px;
-          background-color: #e1e2e3;
-          margin: auto 10px;
-        }
-      }
-
-      &:nth-child(4) {
-        display: none !important;
-        button {
-          margin-right: 10px;
-          padding-left: 10px;
-        }
-      }
+  li:nth-last-child(n + 2) {
+    &:hover {
+      width: 90%;
+      background-color: #ececec;
+      border-radius: 8px;
     }
+  }
+
+  li:nth-last-child(1) {
+    background-color: #ececec;
+  }
+
+  hr {
+    width: 100%;
+    border-top: 1px #888;
   }
 `;
 
@@ -359,59 +849,6 @@ const Overlay = styled.div`
   overflow: hidden;
   transition: 0.5s;
   -webkit-transition: 0.5s;
-
-  .container {
-    margin: 0 auto;
-    max-width: 1060px;
-
-    &:before {
-      content: ' ';
-      display: table;
-    }
-  }
-
-  .row {
-    margin-left: -10px;
-    margin-right: -20px;
-
-    &:before {
-      content: ' ';
-      display: table;
-    }
-
-    h2 {
-      position: relative;
-      font-size: 17px;
-      color: #333;
-      line-height: 20px;
-      vertical-align: top;
-      padding-right: 20px;
-      padding-bottom: 15px;
-      width: 100%;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-
-    h3 {
-      position: relative;
-      font-size: 13px;
-      color: #999;
-      padding: 5px 20px 5px 0;
-      width: 100%;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-
-    i {
-      position: absolute;
-      top: 0;
-      right: 0;
-      font-size: 20px;
-      color: #999;
-    }
-  }
 `;
 
 // 오버레이 container
@@ -425,6 +862,64 @@ const OverlayContainer = styled.div`
   transition: 0.5s;
 `;
 
+// 오버레이 wrapper
+const OverlayWrapper = styled.div`
+  margin: 0 auto;
+  max-width: 1060px;
+
+  &:before {
+    content: ' ';
+    display: table;
+  }
+`;
+
+// 오버레이 - row
+const OverlayRow = styled.div`
+  margin-left: -10px;
+  margin-right: -20px;
+
+  &:before {
+    content: ' ';
+    display: table;
+  }
+
+  h2 {
+    position: relative;
+    font-size: 17px;
+    color: #333;
+    line-height: 20px;
+    vertical-align: top;
+    padding-right: 20px;
+    padding-bottom: 15px;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  h3 {
+    position: relative;
+    font-size: 13px;
+    color: #999;
+    padding: 5px 20px 5px 0;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  i {
+    /* position: absolute; */
+    position: relative;
+    top: 0;
+    /* right: 0; */
+    left: 40%;
+    /* font-size: 20px; */
+    font-size: 12px;
+    color: #999;
+  }
+`;
+
 // 오버레이 - 메뉴
 const OverMenu = styled.div`
   float: left;
@@ -433,20 +928,6 @@ const OverMenu = styled.div`
   /* padding: 40px 20px 0 0; */
   padding: 40px 0 0 0;
   text-align: left;
-`;
-
-const NoOverLay = styled.div`
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 50px;
-  background-color: rgba(0, 0, 0, 0.4);
-  height: 0;
-  opacity: 0;
-  overflow: hidden;
-  -webkit-transition: 0.5s;
-  transition: 0.5s;
 `;
 
 // Nav 크기만큼 공간 차지
