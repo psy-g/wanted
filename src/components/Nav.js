@@ -2,9 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-import burger from '../images/burger.png';
+// import burger from '../images/burger.png';
 
-const Nav = () => {
+const Nav = ({ overlay, over, out, check, menu }) => {
+  const data = {};
+
+  console.log('check', check);
+
   return (
     <>
       <Container>
@@ -16,10 +20,15 @@ const Nav = () => {
                 <button>회원가입하기</button>
               </LogoLink>
             </Logo>
-            <Menu>
+            <Menu onMouseOver={over} onMouseOut={out} ref={menu}>
               {/* 메뉴 */}
               <MenuLi>
-                <StyledLink exact to="/wdlist">
+                <StyledLink
+                  exact
+                  to="/wdlist"
+                  // onMouseOver={over}
+                  // onMouseOut={out}
+                >
                   탐색
                 </StyledLink>
               </MenuLi>
@@ -54,6 +63,99 @@ const Nav = () => {
                 </StyledLink>
               </MenuLi>
             </Menu>
+
+            <Overlay ref={overlay} check={check}>
+              <OverlayContainer check={check}>
+                <div className="container">
+                  <div className="row">
+                    <OverMenu>
+                      <a>
+                        <h2>영업</h2>
+                        {/* <i>화살표</i> */}
+                      </a>
+                      <a>
+                        <h3>기업영업</h3>
+                      </a>
+                      <a>
+                        <h3>외부영업</h3>
+                      </a>
+                      <a>
+                        <h3>영업 관리자</h3>
+                      </a>
+                      <a>
+                        <h3>기술영업</h3>
+                      </a>
+                      <a>
+                        <h3>주요고객사 담당자</h3>
+                      </a>
+                      <a>
+                        <h3>솔루션 컨설턴트</h3>
+                      </a>
+                      <a>
+                        <h3>해외영업</h3>
+                      </a>
+                      <a>
+                        <h3>더보기</h3>
+                      </a>
+                    </OverMenu>
+                    <OverMenu>
+                      <a>
+                        <h2>미디어</h2>
+                        {/* <i>화살표</i> */}
+                      </a>
+                    </OverMenu>
+                    <OverMenu>
+                      <a>
+                        <h2>인사</h2>
+                        {/* <i>화살표</i> */}
+                      </a>
+                    </OverMenu>
+                    <OverMenu>
+                      <a>
+                        <h2>게임 제작</h2>
+                        {/* <i>화살표</i> */}
+                      </a>
+                    </OverMenu>
+                    <OverMenu>
+                      <a>
+                        <h2>금융</h2>
+                        {/* <i>화살표</i> */}
+                      </a>
+                    </OverMenu>
+                    <OverMenu>
+                      <a>
+                        <h2>금융</h2>
+                      </a>
+                      <a>
+                        <h2>물류·무역</h2>
+                      </a>
+                      <a>
+                        <h2>제조·생산</h2>
+                      </a>
+                      <a>
+                        <h2>의료·제작·바이오</h2>
+                      </a>
+                      <a>
+                        <h2>교육</h2>
+                      </a>
+                      <a>
+                        <h2>법률·법집행기관</h2>
+                      </a>
+                      <a>
+                        <h2>식·음료</h2>
+                      </a>
+                      <a>
+                        <h2>건설·시설</h2>
+                      </a>
+                      <a>
+                        <h2>공공·복지</h2>
+                      </a>
+                    </OverMenu>
+                  </div>
+                </div>
+              </OverlayContainer>
+            </Overlay>
+            {/* {check ? <></> : <NoOverLay />} */}
             <Etc>
               <ul>
                 <li>
@@ -159,6 +261,13 @@ const MenuLi = styled.li`
     padding: 15px;
     vertical-align: middle;
   }
+
+  /* &:after {
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+    content: '';
+  } */
 `;
 
 const activeClassName = 'nav-active';
@@ -232,6 +341,112 @@ const Etc = styled.aside`
       }
     }
   }
+`;
+
+// 오버레이
+const Overlay = styled.div`
+  display: block !important;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 50px;
+  background-color: rgba(0, 0, 0, 0.4);
+  /* height: auto; */
+  height: ${(props) => (props.check === false ? 0 : 'auto')};
+  /* opacity: 1; */
+  opacity: ${(props) => (props.check === false ? 0 : 1)};
+  overflow: hidden;
+  transition: 0.5s;
+  -webkit-transition: 0.5s;
+
+  .container {
+    margin: 0 auto;
+    max-width: 1060px;
+
+    &:before {
+      content: ' ';
+      display: table;
+    }
+  }
+
+  .row {
+    margin-left: -10px;
+    margin-right: -20px;
+
+    &:before {
+      content: ' ';
+      display: table;
+    }
+
+    h2 {
+      position: relative;
+      font-size: 17px;
+      color: #333;
+      line-height: 20px;
+      vertical-align: top;
+      padding-right: 20px;
+      padding-bottom: 15px;
+      width: 100%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    h3 {
+      position: relative;
+      font-size: 13px;
+      color: #999;
+      padding: 5px 20px 5px 0;
+      width: 100%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    i {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 20px;
+      color: #999;
+    }
+  }
+`;
+
+// 오버레이 container
+const OverlayContainer = styled.div`
+  position: relative;
+  /* height: 0%; */
+  height: ${(props) => (props.check === false ? '0%' : '100%')};
+  max-height: 625px;
+  background-color: #fff;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+`;
+
+// 오버레이 - 메뉴
+const OverMenu = styled.div`
+  float: left;
+  width: 16.666%;
+  height: 270px;
+  /* padding: 40px 20px 0 0; */
+  padding: 40px 0 0 0;
+  text-align: left;
+`;
+
+const NoOverLay = styled.div`
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 50px;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 `;
 
 // Nav 크기만큼 공간 차지

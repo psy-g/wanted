@@ -8,6 +8,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #333333;
+  background-color: #f8f8fa;
 }
 
 code {
@@ -125,6 +126,7 @@ button {
 a {
   text-decoration: none;
   color: black;
+  cursor: pointer;
 }
 a:visited {
   text-decoration: none;
