@@ -3,7 +3,6 @@ import Search from '../components/Search';
 
 const SearchContainer = () => {
   const random = useRef();
-  const set = useRef();
 
   useEffect(() => {
     randomColor();

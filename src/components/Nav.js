@@ -3,24 +3,24 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 import Search from '../containers/SearchContainer';
+import Data from '../data/category';
+import MenuData from '../data/menu';
+import EtcData from '../data/etc';
 
 const Nav = ({
   overlay,
   over,
   check,
-  menu,
   login,
   logged,
   profile,
   alarm,
   toggle1,
-  dropdown2,
   toggle2,
   logout,
   dom,
   searchBtn,
 }) => {
-  // const data = {};
   return (
     <>
       <Container ref={dom}>
@@ -32,149 +32,53 @@ const Nav = ({
                 <button>회원가입하기</button>
               </LogoLink>
             </Logo>
-            <Menu onMouseOver={over} ref={menu}>
-              {/* 메뉴 */}
-              <MenuLi>
-                <StyledLink exact to="/wdlist">
-                  탐색
-                </StyledLink>
-              </MenuLi>
-              <MenuLi>
-                <StyledLink exact to="/events">
-                  커리어 성장
-                </StyledLink>
-              </MenuLi>
-              <MenuLi>
-                <StyledLink exact to="/salary">
-                  직군별 연봉
-                </StyledLink>
-              </MenuLi>
-              <MenuLi>
-                <StyledLink exact to="/cv">
-                  이력서
-                </StyledLink>
-              </MenuLi>
-              <MenuLi>
-                <StyledLink exact to="/matchup">
-                  매치업
-                </StyledLink>
-              </MenuLi>
-              <MenuLi>
-                <StyledLink exact to="/gigs">
-                  프리랜서
-                </StyledLink>
-              </MenuLi>
-              <MenuLi>
-                <StyledLink exact to="/aiscore">
-                  Ai 합격예측
-                </StyledLink>
-              </MenuLi>
+            <Menu onMouseOver={over}>
+              {MenuData.map((ele, index) => (
+                <MenuLi key={index}>
+                  <StyledLink exact to={ele.address}>
+                    {ele.title}
+                  </StyledLink>
+                </MenuLi>
+              ))}
             </Menu>
-
             <Overlay ref={overlay} check={check}>
               <OverlayContainer check={check}>
-                {/* <div className="container"> */}
                 <OverlayWrapper>
                   <OverlayRow>
+                    {Data.map((category) => (
+                      <OverMenu key={category.name}>
+                        {category.sub.map((ele, index) =>
+                          index === 0 ? (
+                            <a href={'/wdlist' + ele.address} key={index}>
+                              <h2>
+                                {ele.name}
+                                <i className="fas fa-chevron-right" />
+                              </h2>
+                            </a>
+                          ) : index !== 8 ? (
+                            <a href={'/wdlist' + ele.address} key={index}>
+                              <h3>{ele.name}</h3>
+                            </a>
+                          ) : (
+                            <a href={'/wdlist' + ele.address} key={index}>
+                              <h3>
+                                더보기
+                                <i className="fas fa-chevron-right" />
+                              </h3>
+                            </a>
+                          ),
+                        )}
+                      </OverMenu>
+                    ))}
                     <OverMenu>
-                      <a href="/wdlist/530">
-                        <h2>
-                          영업
-                          <i className="fas fa-chevron-right"></i>
-                        </h2>
-                      </a>
-                      <a href="/wdlist/530/1036">
-                        <h3>기업영업</h3>
-                      </a>
-                      <a href="/wdlist/530/766">
-                        <h3>외부영업</h3>
-                      </a>
-                      <a href="/wdlist/530/954">
-                        <h3>영업 관리자</h3>
-                      </a>
-                      <a href="/wdlist/530/770">
-                        <h3>기술영업</h3>
-                      </a>
-                      <a href="/wdlist/530/768">
-                        <h3>주요고객사 담당자</h3>
-                      </a>
-                      <a href="/wdlist/530/1035">
-                        <h3>솔루션 컨설턴트</h3>
-                      </a>
-                      <a href="/wdlist/530/955">
-                        <h3>해외영업</h3>
-                      </a>
-                      <a href="/wdlist/530">
-                        <h3>
-                          더보기
-                          <i className="fas fa-chevron-right"></i>
-                        </h3>
-                      </a>
-                    </OverMenu>
-                    <OverMenu>
-                      <a href="/wdlist/524">
-                        <h2>
-                          미디어
-                          <i className="fas fa-chevron-right"></i>
-                        </h2>
-                      </a>
-                    </OverMenu>
-                    <OverMenu>
-                      <a href="/wdlist/517">
-                        <h2>
-                          인사
-                          <i className="fas fa-chevron-right"></i>
-                        </h2>
-                      </a>
-                    </OverMenu>
-                    <OverMenu>
-                      <a href="/wdlist/959">
-                        <h2>
-                          게임 제작
-                          <i className="fas fa-chevron-right"></i>
-                        </h2>
-                      </a>
-                    </OverMenu>
-                    <OverMenu>
-                      <a href="/wdlist/513">
-                        <h2>
-                          금융
-                          <i className="fas fa-chevron-right"></i>
-                        </h2>
-                      </a>
-                    </OverMenu>
-                    <OverMenu>
-                      <a href="/wdlist/513">
-                        <h2>엔지니어링·설계</h2>
-                      </a>
-                      <a href="/wdlist/532">
-                        <h2>물류·무역</h2>
-                      </a>
-                      <a href="/wdlist/522">
-                        <h2>제조·생산</h2>
-                      </a>
-                      <a href="/wdlist/515">
-                        <h2>의료·제작·바이오</h2>
-                      </a>
-                      <a href="/wdlist/10101">
-                        <h2>교육</h2>
-                      </a>
-                      <a href="/wdlist/521">
-                        <h2>법률·법집행기관</h2>
-                      </a>
-                      <a href="/wdlist/10057">
-                        <h2>식·음료</h2>
-                      </a>
-                      <a href="/wdlist/509">
-                        <h2>건설·시설</h2>
-                      </a>
-                      <a href="/wdlist/514">
-                        <h2>공공·복지</h2>
-                      </a>
+                      {EtcData.map((ele, index) => (
+                        <a href={'/wdlist' + ele.address} key={index}>
+                          <h2>{ele.category}</h2>
+                        </a>
+                      ))}
                     </OverMenu>
                   </OverlayRow>
                 </OverlayWrapper>
-                {/* </div> */}
               </OverlayContainer>
             </Overlay>
             <Etc>
@@ -184,11 +88,6 @@ const Nav = ({
                     <i className="fas fa-search"></i>
                   </span>
                 </li>
-                {/* {!logged && (
-                  <li>
-                    <button onClick={login}>회원가입/로그인</button>
-                  </li>
-                )} */}
                 {!logged ? (
                   <>
                     <li>
@@ -206,78 +105,11 @@ const Nav = ({
                       <span onClick={alarm}>
                         <i className="far fa-bell"></i>
                       </span>
-                      {/* {toggle1 && (
-                        <Dropdown1>
-                          <div>
-                            <ul>
-                              <li>알림창</li>
-                              <li></li>
-                              <li></li>
-                              <li></li>
-                            </ul>
-                          </div>
-                          <div></div>
-                        </Dropdown1>
-                      )} */}
                     </li>
                     <li>
                       <span onClick={profile}>
                         <i className="far fa-user"></i>
                       </span>
-                      {/* {toggle2 && (
-                        <Dropdown2>
-                          <div>
-                            <ul>
-                              <li>
-                                <a href="/mywanted">
-                                  <span>MY 원티드</span>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="/mywanted">
-                                  <span>프로필</span>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="/mywanted">
-                                  <span>지원 현황</span>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="/mywanted">
-                                  <span>제안받기 현황</span>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="/mywanted">
-                                  <span>좋아요</span>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="/mywanted">
-                                  <span>북마크</span>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="/mywanted">
-                                  <span>추천</span>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="/mywanted">
-                                  <span>포인트</span>
-                                </a>
-                              </li>
-                              <li>
-                                <a href="/mywanted">
-                                  <span>로그아웃</span>
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                          <div></div>
-                        </Dropdown2>
-                      )} */}
                     </li>
                   </>
                 )}
@@ -856,7 +688,7 @@ const OverlayContainer = styled.div`
   position: relative;
   /* height: 0%; */
   height: ${(props) => (props.check === false ? '0%' : '100%')};
-  max-height: 625px;
+  max-height: 480px;
   background-color: #fff;
   -webkit-transition: 0.5s;
   transition: 0.5s;

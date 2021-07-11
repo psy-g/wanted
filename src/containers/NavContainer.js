@@ -3,7 +3,6 @@ import Nav from '../components/Nav';
 
 const NavContainer = () => {
   const overlay = useRef();
-  const menu = useRef();
   const dom = useRef();
   const [check, setCheck] = useState(false);
   const [logged, setLogged] = useState();
@@ -11,8 +10,6 @@ const NavContainer = () => {
   const [toggle2, setToggle2] = useState(false);
 
   const over = (e) => {
-    // console.log('target', dom.current.children[3].children[0].children);
-    // console.log('parent', menu.current.children[0].innerText);
     if (e.target.innerText === '탐색') {
       setCheck(true);
     } else {
@@ -68,7 +65,6 @@ const NavContainer = () => {
     let target2 = dom.current.parentElement.children[2].children[1];
     target1.style.display = 'flex';
     target2.style.display = 'block';
-    console.log('target', target2);
   };
 
   return (
@@ -76,7 +72,6 @@ const NavContainer = () => {
       overlay={overlay}
       over={over}
       check={check}
-      menu={menu}
       login={login}
       logged={logged}
       profile={profile}
