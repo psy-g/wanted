@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Search = ({ random, closeBtn }) => {
+const Search = ({ random, closeBtn, search }) => {
+  // console.log('search', search);
   return (
     <>
       <Container>

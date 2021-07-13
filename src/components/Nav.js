@@ -6,45 +6,45 @@ import Search from '../containers/SearchContainer';
 import Data from '../data/category';
 import MenuData from '../data/menu';
 import EtcData from '../data/etc';
+import wanted from '../images/wanted.png';
 
 const Nav = ({
   overlay,
   over,
-  check,
   login,
   loginCheck,
-  logged,
-  profile,
-  alarm,
-  toggle1,
-  toggle2,
-  logout,
   dom,
-  searchBtn,
+  logout,
+  handler,
+  state,
 }) => {
-  console.log('=', loginCheck);
+  // console.log('=========', state.search);
+
   return (
     <>
       <Container ref={dom}>
-        <Wrapper>
-          <Collection>
-            <Logo>
+        <Wrapper loginCheck={loginCheck}>
+          <Collection onClick={handler}>
+            <Logo loginCheck={loginCheck}>
               <LogoLink href="/" title="홈으로 이동">
                 wanted
-                <button>회원가입하기</button>
+                <button onClick={login}>회원가입하기</button>
               </LogoLink>
             </Logo>
             <Menu onMouseOver={over}>
-              {MenuData.map((ele, index) => (
-                <MenuLi key={index}>
-                  <StyledLink exact to={ele.address}>
-                    {ele.title}
-                  </StyledLink>
-                </MenuLi>
-              ))}
+              {MenuData.map(
+                (ele, index) =>
+                  index < 8 && (
+                    <MenuLi key={index}>
+                      <StyledLink exact to={ele.address} data-kind={ele.kind}>
+                        {ele.title}
+                      </StyledLink>
+                    </MenuLi>
+                  ),
+              )}
             </Menu>
-            <Overlay ref={overlay} check={check}>
-              <OverlayContainer check={check}>
+            <Overlay ref={overlay} check={state.explore}>
+              <OverlayContainer check={state.explore}>
                 <OverlayWrapper>
                   <OverlayRow>
                     {Data.map((category) => (
@@ -84,7 +84,31 @@ const Nav = ({
               </OverlayContainer>
             </Overlay>
             <Etc>
-              <EtcContainer>
+              <EtcContainer loginCheck={loginCheck} temp={state}>
+                {MenuData.map((ele, index) =>
+                  index > 7 && ele.icon.length > 0 ? (
+                    <li key={index}>
+                      <span>
+                        <i className={ele.icon} data-kind={ele.kind} />
+                      </span>
+                    </li>
+                  ) : (
+                    index > 7 &&
+                    ele.icon.length === 0 && (
+                      <li key={index}>
+                        {ele.address.length !== 0 ? (
+                          <a href={ele.address} data-kind={ele.kind}>
+                            {ele.title}
+                          </a>
+                        ) : (
+                          <button data-kind={ele.kind}>{ele.title}</button>
+                        )}
+                      </li>
+                    )
+                  ),
+                )}
+              </EtcContainer>
+              {/* <EtcContainer>
                 <li>
                   <span onClick={searchBtn}>
                     <i className="fas fa-search"></i>
@@ -93,12 +117,10 @@ const Nav = ({
                 {!loginCheck ? (
                   <>
                     <li>
-                      <button onClick={login}>
-                        회원가입&nbsp;&nbsp;&nbsp;/
-                      </button>
+                      <button onClick={login}>회원가입</button>
                     </li>
                     <li>
-                      <button onClick={login}>인</button>
+                      <button onClick={login}>/&nbsp;&nbsp;&nbsp;로그인</button>
                     </li>
                   </>
                 ) : (
@@ -119,12 +141,13 @@ const Nav = ({
                   <a href="/dashboard">기업 서비스</a>
                 </li>
                 <li>
-                  <button>
+                  <button onClick={profile}>
                     <i className="fas fa-bars"></i>
                   </button>
                 </li>
-              </EtcContainer>
-              {toggle1 && (
+              </EtcContainer> */}
+
+              {state.alarm && (
                 <Dropdown1>
                   <div>
                     <ul>
@@ -224,8 +247,18 @@ const Nav = ({
                   <div></div>
                 </Dropdown1>
               )}
-              {toggle2 && (
+              {state.profile && (
                 <Dropdown2>
+                  <div>
+                    <a href="/">
+                      <img src={wanted} alt="logo" />
+                    </a>
+                    <a href="/">
+                      <button>
+                        <i className="fas fa-times"></i>
+                      </button>
+                    </a>
+                  </div>
                   <div>
                     <ul>
                       <li>
@@ -285,7 +318,7 @@ const Nav = ({
         </Wrapper>
       </Container>
       <Space />
-      <Search />
+      <Search search={state.search} />
     </>
   );
 };
@@ -312,6 +345,11 @@ const Wrapper = styled.div`
 
   @media ${(props) => props.theme.tablet} {
     width: 90%;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    width: 90%;
+    height: ${(props) => (props.loginCheck ? '50px' : '100px')};
   }
 `;
 
@@ -342,6 +380,10 @@ const Logo = styled.div`
   -webkit-box-pack: justify;
   justify-content: space-between;
 
+  @media ${(props) => props.theme.mobile} {
+    width: ${(props) => (props.loginCheck ? '100%' : '100%')};
+  }
+
   button {
     display: none;
     color: #36f;
@@ -351,10 +393,20 @@ const Logo = styled.div`
     height: 34px;
     border-radius: 17px;
     padding: 0 14px;
+
+    @media ${(props) => props.theme.mobile} {
+      display: ${(props) => (props.loginCheck ? 'none' : 'flex')};
+    }
   }
 
-  @media ${(props) => props.theme.mobile} {
-    display: none;
+  a {
+    @media ${(props) => props.theme.mobile} {
+      width: 100%;
+      /* display: flex; */
+      display: ${(props) => (props.loginCheck ? 'none' : 'flex')};
+      justify-content: space-between;
+      padding: 15px 5px 0;
+    }
   }
 `;
 
@@ -468,6 +520,17 @@ const EtcContainer = styled.ul`
   }
 
   li:nth-child(1) {
+    i {
+      display: inline-block;
+      border-radius: 60px;
+      padding: 0.3em 0.4em;
+      font-size: 18px;
+    }
+  }
+
+  li:nth-child(2) {
+    display: ${(props) => (props.loginCheck ? 'none' : 'flex')};
+
     span {
       i {
         display: inline-block;
@@ -476,20 +539,32 @@ const EtcContainer = styled.ul`
         font-size: 18px;
       }
     }
-  }
-
-  li:nth-child(2) {
-    span {
-      i {
-        display: inline-block;
-        border-radius: 60px;
-        padding: 0.3em 0.4em;
-        font-size: 18px;
+    button {
+      @media ${(props) => props.theme.mobile} {
+        display: none;
       }
     }
   }
 
   li:nth-child(3) {
+    display: ${(props) => (props.loginCheck ? 'flex' : 'none')};
+
+    span {
+      i {
+        display: inline-block;
+        border-radius: 60px;
+        padding: 0.3em 0.4em;
+        font-size: 18px;
+
+        color: ${(props) => (props.temp.alarm ? 'white' : '#333333')};
+        background-color: ${(props) => (props.temp.alarm ? '#36f' : '#fff')};
+      }
+    }
+  }
+
+  li:nth-child(4) {
+    display: ${(props) => (props.loginCheck ? 'flex' : 'none')};
+
     span {
       i {
         display: inline-block;
@@ -497,15 +572,32 @@ const EtcContainer = styled.ul`
         box-shadow: 0px 0px 2px #888;
         padding: 0.3em 0.4em;
         font-size: 18px;
+
+        box-shadow: ${(props) =>
+          props.temp.profile ? '0 0 0 2px #36f' : '0px 0px 2px #888'};
       }
     }
+    /* 
+    a {
+      font-size: 13px;
+      color: #666;
+      line-height: 30px;
+      height: 30px;
+      border: 1px solid #e1e2e3;
+      border-radius: 15px;
+      padding: 0 10px;
+      margin: 0 0 0 15px;
+      font-weight: 400;
+    } */
 
     @media ${(props) => props.theme.mobile} {
       display: none;
     }
   }
 
-  li:nth-child(4) {
+  li:nth-child(5) {
+    /* display: none; */
+
     &:before {
       display: block;
       content: '';
@@ -527,15 +619,7 @@ const EtcContainer = styled.ul`
       font-weight: 400;
     }
 
-    @media ${(props) => props.theme.mobile} {
-      display: none;
-    }
-  }
-
-  li:nth-child(5) {
-    display: none;
-
-    button {
+    /* button {
       i {
         display: inline-block;
         border-radius: 60px;
@@ -543,6 +627,22 @@ const EtcContainer = styled.ul`
         font-size: 18px;
         cursor: pointer;
       }
+    } */
+
+    @media ${(props) => props.theme.mobile} {
+      display: none;
+    }
+  }
+
+  li:nth-child(6) {
+    display: none;
+
+    i {
+      display: inline-block;
+      border-radius: 60px;
+      padding: 0.3em 0.4em;
+      font-size: 18px;
+      cursor: pointer;
     }
 
     @media ${(props) => props.theme.mobile} {
@@ -562,6 +662,16 @@ const Dropdown1 = styled.div`
   -webkit-transform: translate(50%, 8px);
   transform: translate(50%, 8px);
 
+  @media ${(props) => props.theme.tablet} {
+    top: 50px;
+    margin-top: 0px;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    transform: none;
+    left: 0;
+  }
+
   div:nth-child(1) {
     overflow-y: auto;
     overflow-x: hidden;
@@ -572,6 +682,13 @@ const Dropdown1 = styled.div`
     box-shadow: 1px 2px 10px 0 rgb(0 0 0 / 30%);
     border: 1px solid #cdcdcd;
     background-color: #fff;
+
+    @media ${(props) => props.theme.tablet} {
+      width: 100%;
+      height: 100%;
+      box-shadow: none;
+      border: 0;
+    }
 
     ul {
       width: 100%;
@@ -649,6 +766,10 @@ const Dropdown1 = styled.div`
       border-top-right-radius: 30%;
       -webkit-transform: rotate(-55deg) skewX(-20deg);
       transform: rotate(-55deg) skewX(-20deg);
+
+      @media ${(props) => props.theme.tablet} {
+        display: none;
+      }
     }
   }
 `;
@@ -664,7 +785,41 @@ const Dropdown2 = styled.div`
   -webkit-transform: translate(50%, 8px);
   transform: translate(50%, 8px);
 
+  @media ${(props) => props.theme.tablet} {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    margin-top: 0;
+    -webkit-transform: none;
+    transform: none;
+  }
+
   div:nth-child(1) {
+    display: none;
+
+    @media ${(props) => props.theme.tablet} {
+      display: flex;
+      background-color: #fff;
+      height: 10%;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      img {
+        margin-left: 20px;
+      }
+
+      button {
+        margin-right: 20px;
+        color: #999;
+        font-size: 22px;
+      }
+    }
+  }
+
+  div:nth-child(2) {
     overflow: hidden;
     height: 400px;
     width: 194px;
@@ -673,9 +828,16 @@ const Dropdown2 = styled.div`
     box-shadow: 1px 2px 10px 0 rgb(0 0 0 / 30%);
     border: 1px solid #cdcdcd;
     background-color: #fff;
+
+    @media ${(props) => props.theme.tablet} {
+      width: 100%;
+      height: 80%;
+      box-shadow: none;
+      border: 0;
+    }
   }
 
-  div:nth-child(2) {
+  div:nth-child(3) {
     position: absolute;
     right: 24%;
     bottom: 100%;
@@ -696,6 +858,10 @@ const Dropdown2 = styled.div`
       border-top-right-radius: 30%;
       -webkit-transform: rotate(-55deg) skewX(-20deg);
       transform: rotate(-55deg) skewX(-20deg);
+
+      @media ${(props) => props.theme.tablet} {
+        display: none;
+      }
     }
   }
 
@@ -713,6 +879,14 @@ const Dropdown2 = styled.div`
     flex: 1;
     justify-content: center;
     align-items: center;
+
+    @media ${(props) => props.theme.tablet} {
+      justify-content: left;
+      margin-left: 40px;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1;
+    }
   }
 
   li:nth-last-child(n + 2) {
@@ -720,11 +894,20 @@ const Dropdown2 = styled.div`
       width: 90%;
       background-color: #ececec;
       border-radius: 8px;
+
+      @media ${(props) => props.theme.tablet} {
+        background-color: #fff;
+        width: 100%;
+      }
     }
   }
 
   li:nth-last-child(1) {
     background-color: #ececec;
+
+    @media ${(props) => props.theme.tablet} {
+      background-color: #fff;
+    }
   }
 
   hr {
@@ -742,24 +925,30 @@ const Overlay = styled.div`
   bottom: 0;
   top: 50px;
   background-color: rgba(0, 0, 0, 0.4);
-  /* height: auto; */
   height: ${(props) => (props.check === false ? 0 : 'auto')};
-  /* opacity: 1; */
   opacity: ${(props) => (props.check === false ? 0 : 1)};
   overflow: hidden;
   transition: 0.5s;
   -webkit-transition: 0.5s;
+
+  @media ${(props) => props.theme.mobile} {
+    background-color: #fff;
+    position: static;
+  }
 `;
 
 // 오버레이 container
 const OverlayContainer = styled.div`
   position: relative;
-  /* height: 0%; */
   height: ${(props) => (props.check === false ? '0%' : '100%')};
   max-height: 480px;
   background-color: #fff;
   -webkit-transition: 0.5s;
   transition: 0.5s;
+
+  @media ${(props) => props.theme.mobile} {
+    display: none;
+  }
 `;
 
 // 오버레이 wrapper
@@ -775,7 +964,7 @@ const OverlayWrapper = styled.div`
 
 // 오버레이 - row
 const OverlayRow = styled.div`
-  margin-left: -10px;
+  margin-left: 10px;
   margin-right: -20px;
 
   &:before {
@@ -809,12 +998,9 @@ const OverlayRow = styled.div`
   }
 
   i {
-    /* position: absolute; */
     position: relative;
     top: 0;
-    /* right: 0; */
     left: 40%;
-    /* font-size: 20px; */
     font-size: 12px;
     color: #999;
   }
@@ -825,7 +1011,6 @@ const OverMenu = styled.div`
   float: left;
   width: 16.666%;
   height: 270px;
-  /* padding: 40px 20px 0 0; */
   padding: 40px 0 0 0;
   text-align: left;
 `;
