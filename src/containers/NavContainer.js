@@ -4,6 +4,7 @@ import Nav from '../components/Nav';
 const NavContainer = () => {
   const overlay = useRef();
   const dom = useRef();
+  const loginCheck = window.localStorage.getItem('login');
   const [check, setCheck] = useState(false);
   const [logged, setLogged] = useState();
   const [toggle1, setToggle1] = useState(false);
@@ -20,11 +21,13 @@ const NavContainer = () => {
   // 회원가입/로그인
   const login = () => {
     setLogged(true);
+    window.localStorage.setItem('login', true);
   };
 
   // 로그아웃
   const logout = () => {
     setLogged(false);
+    window.localStorage.setItem('login', false);
   };
 
   // 알림
@@ -73,6 +76,7 @@ const NavContainer = () => {
       over={over}
       check={check}
       login={login}
+      loginCheck={loginCheck}
       logged={logged}
       profile={profile}
       alarm={alarm}

@@ -12,6 +12,7 @@ const Nav = ({
   over,
   check,
   login,
+  loginCheck,
   logged,
   profile,
   alarm,
@@ -21,6 +22,7 @@ const Nav = ({
   dom,
   searchBtn,
 }) => {
+  console.log('=', loginCheck);
   return (
     <>
       <Container ref={dom}>
@@ -88,7 +90,7 @@ const Nav = ({
                     <i className="fas fa-search"></i>
                   </span>
                 </li>
-                {!logged ? (
+                {!loginCheck ? (
                   <>
                     <li>
                       <button onClick={login}>
@@ -96,7 +98,7 @@ const Nav = ({
                       </button>
                     </li>
                     <li>
-                      <button onClick={login}>로그인</button>
+                      <button onClick={login}>인</button>
                     </li>
                   </>
                 ) : (
@@ -283,7 +285,6 @@ const Nav = ({
         </Wrapper>
       </Container>
       <Space />
-      {/* {search && <Search />} */}
       <Search />
     </>
   );
@@ -305,10 +306,13 @@ const Container = styled.div`
 const Wrapper = styled.div`
   position: relative;
   max-width: 1060px;
+  min-width: 272px;
   height: 50px;
-
-  // break-point
   margin: 0 auto;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 90%;
+  }
 `;
 
 // 로고, 메뉴, 기타
@@ -319,6 +323,15 @@ const Collection = styled.nav`
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
+
+  @media ${(props) => props.theme.tablet} {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    justify-content: space-between;
+  }
 `;
 
 // 로고
@@ -338,6 +351,10 @@ const Logo = styled.div`
     height: 34px;
     border-radius: 17px;
     padding: 0 14px;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    display: none;
   }
 `;
 
@@ -361,6 +378,10 @@ const MenuLi = styled.li`
   display: inline-block;
   height: inherit;
 
+  &:nth-child(1) {
+    display: none;
+  }
+
   a {
     display: inline-block;
     position: relative;
@@ -369,6 +390,28 @@ const MenuLi = styled.li`
     font-weight: 600;
     padding: 15px;
     vertical-align: middle;
+
+    @media ${(props) => props.theme.tablet} {
+      padding-right: 4px !important;
+      padding-left: 4px !important;
+      font-size: 13px;
+    }
+
+    @media ${(props) => props.theme.mobile} {
+      padding-right: 6px !important;
+      padding-left: 6px !important;
+      font-size: 15px;
+    }
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    &:nth-child(1) {
+      display: inline-block;
+    }
+
+    &:nth-child(n + 4) {
+      display: none;
+    }
   }
 `;
 
@@ -405,6 +448,19 @@ const EtcContainer = styled.ul`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+
+  @media ${(props) => props.theme.tablet} {
+    width: 250px;
+    justify-content: left;
+  }
+
+  @media ${(props) => props.theme.mobile} {
+    justify-content: flex-end;
+  }
+
+  @media ${(props) => props.theme.min} {
+    width: 100px;
+  }
 
   li {
     display: flex;
@@ -443,6 +499,10 @@ const EtcContainer = styled.ul`
         font-size: 18px;
       }
     }
+
+    @media ${(props) => props.theme.mobile} {
+      display: none;
+    }
   }
 
   li:nth-child(4) {
@@ -466,19 +526,27 @@ const EtcContainer = styled.ul`
       margin: 0 0 0 15px;
       font-weight: 400;
     }
+
+    @media ${(props) => props.theme.mobile} {
+      display: none;
+    }
   }
 
   li:nth-child(5) {
-    display: none !important;
+    display: none;
 
     button {
       i {
         display: inline-block;
         border-radius: 60px;
-        box-shadow: 0px 0px 2px #888;
         padding: 0.3em 0.4em;
         font-size: 18px;
+        cursor: pointer;
       }
+    }
+
+    @media ${(props) => props.theme.mobile} {
+      display: flex;
     }
   }
 `;
