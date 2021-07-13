@@ -5,86 +5,93 @@ const NavContainer = () => {
   const overlay = useRef();
   const dom = useRef();
   const loginCheck = window.localStorage.getItem('login');
-  const [check, setCheck] = useState(false);
   const [logged, setLogged] = useState();
-  const [toggle1, setToggle1] = useState(false);
-  const [toggle2, setToggle2] = useState(false);
+  const [state, setState] = useState({
+    explore: false,
+    alarm: false,
+    profile: false,
+    search: false,
+  });
 
+  // 이벤트 처리
+  const handler = (e) => {
+    // console.log('e', e.target.nodeName); // 1. 노드 네임 분류(A, I)
+
+    // 회원가입/로그인
+    if (e.target.dataset.kind === 'login') {
+      setLogged(true);
+      window.localStorage.setItem('login', true);
+    }
+
+    // 알람
+    if (e.target.dataset.kind === 'alarm') {
+      if (state.alarm) {
+        setState({ ...state, alarm: false });
+      } else {
+        setState({
+          alarm: true,
+          explore: false,
+          profile: false,
+          search: false,
+        });
+      }
+    }
+
+    // 프로필
+    if (e.target.dataset.kind === 'profile') {
+      if (state.profile) {
+        setState({ ...state, profile: false });
+      } else {
+        setState({
+          alarm: false,
+          explore: false,
+          profile: true,
+          search: false,
+        });
+      }
+    }
+
+    // 검색
+    if (e.target.dataset.kind === 'search') {
+      let target1 = dom.current.parentElement.children[2].children[0];
+      let target2 = dom.current.parentElement.children[2].children[1];
+
+      target1.style.display = 'flex';
+      target2.style.display = 'block';
+    }
+  };
+
+  // 탐색 마우스오버
   const over = (e) => {
     if (e.target.innerText === '탐색') {
-      setCheck(true);
+      setState({ explore: true, alarm: false, profile: false, search: false });
     } else {
-      setCheck(false);
+      setState({ ...state, explore: false });
     }
   };
 
   // 회원가입/로그인
-  const login = () => {
-    setLogged(true);
-    window.localStorage.setItem('login', true);
-  };
+  // const login = () => {
+  //   setLogged(true);
+  //   window.localStorage.setItem('login', true);
+  // };
 
   // 로그아웃
   const logout = () => {
     setLogged(false);
-    window.localStorage.setItem('login', false);
-  };
-
-  // 알림
-  const alarm = (e) => {
-    let select = e.target;
-    setCheck(false);
-    setToggle2(false);
-
-    if (toggle1) {
-      setToggle1(false);
-      select.style.color = '#333333';
-      select.style.backgroundColor = '#fff';
-    } else {
-      setToggle1(true);
-      select.style.color = 'white';
-      select.style.backgroundColor = '#36f';
-    }
-  };
-
-  // 프로필
-  const profile = (e) => {
-    let select = e.target;
-    setCheck(false);
-    setToggle1(false);
-
-    if (toggle2) {
-      setToggle2(false);
-      select.style.boxShadow = '0px 0px 2px #888';
-    } else {
-      setToggle2(true);
-      select.style.boxShadow = '0 0 0 2px #36f';
-    }
-  };
-
-  // 검색
-  const searchBtn = () => {
-    let target1 = dom.current.parentElement.children[2].children[0];
-    let target2 = dom.current.parentElement.children[2].children[1];
-    target1.style.display = 'flex';
-    target2.style.display = 'block';
+    window.localStorage.clear();
   };
 
   return (
     <Nav
       overlay={overlay}
       over={over}
-      check={check}
-      login={login}
       loginCheck={loginCheck}
       logged={logged}
-      profile={profile}
-      alarm={alarm}
-      toggle1={toggle1}
-      toggle2={toggle2}
       logout={logout}
       dom={dom}
-      searchBtn={searchBtn}
+      handler={handler}
+      state={state}
     />
   );
 };
