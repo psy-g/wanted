@@ -77,27 +77,31 @@ const Input = styled.div`
   width: 85%;
   height: 35%;
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 
   span:nth-child(1) {
-    position: absolute;
-    top: 52px;
-    left: 80px;
-    -webkit-transform: translateY(-50%);
-    transform: translateY(-50%);
+    width: 0;
     color: #939393;
-    width: 18px;
-    height: 18px;
-    margin: 0 16px 0 6px;
     font-size: 20px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(1);
+    z-index: 1;
+
+    i {
+      text-indent: 50px;
+    }
   }
 
   input {
-    height: 50px;
     line-height: 50px;
     width: 100%;
     margin: 0;
-    padding: 0 36px 0 60px;
+    text-indent: 60px;
     border: 1px solid #f2f4f7;
     border-radius: 20px;
     font-size: 16px;
@@ -110,7 +114,7 @@ const Input = styled.div`
 
     &:focus {
       border: 1px solid #36f;
-      border-radius: 25px;
+      border-radius: 20px;
       color: #333;
       background-color: #fff;
       outline: none;
@@ -167,18 +171,37 @@ const Recommand = styled.div`
     background-color: #f3f5f8;
     border-radius: 25px;
     cursor: pointer;
+
+    @media ${(props) => props.theme.tablet} {
+      padding: 0 6px;
+      font-size: 14px;
+      margin-right: 5px;
+      border-radius: 18px;
+      line-height: 20px;
+      height: 40px;
+    }
+
+    @media ${(props) => props.theme.mobile} {
+      padding: 0 4px;
+      font-size: 10px;
+      margin-right: 4px;
+      border-radius: 14px;
+      line-height: 0px;
+      height: 35px;
+    }
   }
 `;
 
 const Out = styled.div`
   content: '';
-  /* display: block; */
   display: none;
   position: fixed;
-  /* top: 50px; */
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
-  z-index: -1;
+
+  @media ${(props) => props.theme.mobile} {
+    background-color: #fff;
+  }
 `;
