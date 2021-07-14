@@ -3,23 +3,22 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 import Search from '../containers/SearchContainer';
+import Burger from '../containers/BurgerContainer';
 import Data from '../data/category';
 import MenuData from '../data/menu';
 import EtcData from '../data/etc';
 import wanted from '../images/wanted.png';
 
 const Nav = ({
-  overlay,
-  over,
-  login,
   loginCheck,
   dom,
   logout,
   handler,
+  over,
   state,
+  modify,
+  burger,
 }) => {
-  // console.log('=========', state.search);
-
   return (
     <>
       <Container ref={dom}>
@@ -28,7 +27,7 @@ const Nav = ({
             <Logo loginCheck={loginCheck}>
               <LogoLink href="/" title="홈으로 이동">
                 wanted
-                <button onClick={login}>회원가입하기</button>
+                <button data-kind="login">회원가입하기</button>
               </LogoLink>
             </Logo>
             <Menu onMouseOver={over}>
@@ -43,7 +42,7 @@ const Nav = ({
                   ),
               )}
             </Menu>
-            <Overlay ref={overlay} check={state.explore}>
+            <Overlay check={state.explore}>
               <OverlayContainer check={state.explore}>
                 <OverlayWrapper>
                   <OverlayRow>
@@ -108,45 +107,6 @@ const Nav = ({
                   ),
                 )}
               </EtcContainer>
-              {/* <EtcContainer>
-                <li>
-                  <span onClick={searchBtn}>
-                    <i className="fas fa-search"></i>
-                  </span>
-                </li>
-                {!loginCheck ? (
-                  <>
-                    <li>
-                      <button onClick={login}>회원가입</button>
-                    </li>
-                    <li>
-                      <button onClick={login}>/&nbsp;&nbsp;&nbsp;로그인</button>
-                    </li>
-                  </>
-                ) : (
-                  <>
-                    <li>
-                      <span onClick={alarm}>
-                        <i className="far fa-bell"></i>
-                      </span>
-                    </li>
-                    <li>
-                      <span onClick={profile}>
-                        <i className="far fa-user"></i>
-                      </span>
-                    </li>
-                  </>
-                )}
-                <li>
-                  <a href="/dashboard">기업 서비스</a>
-                </li>
-                <li>
-                  <button onClick={profile}>
-                    <i className="fas fa-bars"></i>
-                  </button>
-                </li>
-              </EtcContainer> */}
-
               {state.alarm && (
                 <Dropdown1>
                   <div>
@@ -318,7 +278,8 @@ const Nav = ({
         </Wrapper>
       </Container>
       <Space />
-      <Search search={state.search} />
+      <Search state={state} modify={modify} />
+      <Burger burger={burger} />
     </>
   );
 };
@@ -402,7 +363,6 @@ const Logo = styled.div`
   a {
     @media ${(props) => props.theme.mobile} {
       width: 100%;
-      /* display: flex; */
       display: ${(props) => (props.loginCheck ? 'none' : 'flex')};
       justify-content: space-between;
       padding: 15px 5px 0;

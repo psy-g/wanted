@@ -1,16 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import Search from '../components/Search';
 
-const SearchContainer = () => {
+const SearchContainer = ({ state, modify }) => {
   const random = useRef();
 
   useEffect(() => {
     randomColor();
-  }, []);
+  });
 
   // input focus, random color
   const randomColor = () => {
     let select = random.current.getElementsByTagName('button');
+    let input = document.getElementsByTagName('input')[0];
 
     for (let i = 0; i < select.length; i++) {
       let randomBackground =
@@ -20,20 +21,18 @@ const SearchContainer = () => {
       select[i].style.backgroundColor = randomBackground;
       select[i].style.color = randomFont;
     }
+
+    setTimeout(() => {
+      input.focus();
+    }, 0);
   };
 
   // close
   const closeBtn = (e) => {
-    let select = e.target.previousSibling;
-    let target = e.target.parentNode.children[1];
-
-    if (select) {
-      select.style.display = 'none';
-      target.style.display = 'none';
-    }
+    modify(false);
   };
 
-  return <Search random={random} closeBtn={closeBtn} />;
+  return <Search random={random} closeBtn={closeBtn} search={state.search} />;
 };
 
 export default SearchContainer;

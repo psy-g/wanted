@@ -2,11 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Search = ({ random, closeBtn, search }) => {
-  // console.log('search', search);
   return (
     <>
       <Container>
-        <Wrapper>
+        <Wrapper search={search} ref={random}>
           <Input>
             <span>
               <i className="fas fa-search"></i>
@@ -20,7 +19,7 @@ const Search = ({ random, closeBtn, search }) => {
               <i className="fas fa-chevron-right"></i>
             </a>
           </Tag>
-          <Recommand ref={random}>
+          <Recommand>
             <ul>
               <li>
                 <button>#연봉상위2~5%</button>
@@ -40,7 +39,7 @@ const Search = ({ random, closeBtn, search }) => {
             </ul>
           </Recommand>
         </Wrapper>
-        <Out onClick={closeBtn} />
+        <Out onClick={closeBtn} search={search} />
       </Container>
     </>
   );
@@ -67,7 +66,7 @@ const Wrapper = styled.div`
   position: relative;
   background-color: #fff;
   height: 150px;
-  display: none;
+  display: ${(props) => (props.search ? 'flex' : 'none')};
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -195,7 +194,7 @@ const Recommand = styled.div`
 
 const Out = styled.div`
   content: '';
-  display: none;
+  display: ${(props) => (props.search ? 'block' : 'none')};
   position: fixed;
   left: 0;
   width: 100%;
