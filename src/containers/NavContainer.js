@@ -2,10 +2,10 @@ import React, { useRef, useState } from 'react';
 import Nav from '../components/Nav';
 
 const NavContainer = () => {
-  const overlay = useRef();
   const dom = useRef();
   const loginCheck = window.localStorage.getItem('login');
   const [logged, setLogged] = useState();
+  const [burger, setBurger] = useState();
   const [state, setState] = useState({
     explore: false,
     alarm: false,
@@ -15,7 +15,7 @@ const NavContainer = () => {
 
   // 이벤트 처리
   const handler = (e) => {
-    // console.log('e', e.target.nodeName); // 1. 노드 네임 분류(A, I)
+    console.log('e', e.target.dataset.kind);
 
     // 회원가입/로그인
     if (e.target.dataset.kind === 'login') {
@@ -53,11 +53,16 @@ const NavContainer = () => {
 
     // 검색
     if (e.target.dataset.kind === 'search') {
-      let target1 = dom.current.parentElement.children[2].children[0];
-      let target2 = dom.current.parentElement.children[2].children[1];
+      setState({ explore: false, alarm: false, profile: false, search: true });
+    }
 
-      target1.style.display = 'flex';
-      target2.style.display = 'block';
+    // 버거
+    if (e.target.dataset.kind === 'mobile') {
+      if (burger) {
+        setBurger(false);
+      } else {
+        setBurger(true);
+      }
     }
   };
 
@@ -82,9 +87,13 @@ const NavContainer = () => {
     window.localStorage.clear();
   };
 
+  // modify state
+  const modify = (bool) => {
+    setState({ ...state, search: bool });
+  };
+
   return (
     <Nav
-      overlay={overlay}
       over={over}
       loginCheck={loginCheck}
       logged={logged}
@@ -92,6 +101,8 @@ const NavContainer = () => {
       dom={dom}
       handler={handler}
       state={state}
+      modify={modify}
+      burger={burger}
     />
   );
 };
