@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 import Search from '../containers/SearchContainer';
-import Burger from '../containers/BurgerContainer';
+import Reduction from '../containers/ReductionContainer';
 import Data from '../data/category';
 import MenuData from '../data/menu';
 import EtcData from '../data/etc';
@@ -279,7 +279,12 @@ const Nav = ({
       </Container>
       <Space />
       <Search state={state} modify={modify} />
-      <Burger burger={burger} />
+      <Reduction
+        burger={burger}
+        logout={logout}
+        handler={handler}
+        state={state}
+      />
     </>
   );
 };
@@ -445,7 +450,6 @@ const StyledLink = styled(NavLink).attrs({ activeClassName })`
 // 기타
 const Etc = styled.aside`
   height: 100%;
-  /* padding: 10px 0; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -537,27 +541,13 @@ const EtcContainer = styled.ul`
           props.temp.profile ? '0 0 0 2px #36f' : '0px 0px 2px #888'};
       }
     }
-    /* 
-    a {
-      font-size: 13px;
-      color: #666;
-      line-height: 30px;
-      height: 30px;
-      border: 1px solid #e1e2e3;
-      border-radius: 15px;
-      padding: 0 10px;
-      margin: 0 0 0 15px;
-      font-weight: 400;
-    } */
 
-    @media ${(props) => props.theme.mobile} {
+    @media ${(props) => props.theme.tablet} {
       display: none;
     }
   }
 
   li:nth-child(5) {
-    /* display: none; */
-
     &:before {
       display: block;
       content: '';
@@ -579,17 +569,7 @@ const EtcContainer = styled.ul`
       font-weight: 400;
     }
 
-    /* button {
-      i {
-        display: inline-block;
-        border-radius: 60px;
-        padding: 0.3em 0.4em;
-        font-size: 18px;
-        cursor: pointer;
-      }
-    } */
-
-    @media ${(props) => props.theme.mobile} {
+    @media ${(props) => props.theme.tablet} {
       display: none;
     }
   }
@@ -605,7 +585,7 @@ const EtcContainer = styled.ul`
       cursor: pointer;
     }
 
-    @media ${(props) => props.theme.mobile} {
+    @media ${(props) => props.theme.tablet} {
       display: flex;
     }
   }
@@ -746,14 +726,7 @@ const Dropdown2 = styled.div`
   transform: translate(50%, 8px);
 
   @media ${(props) => props.theme.tablet} {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    margin-top: 0;
-    -webkit-transform: none;
-    transform: none;
+    display: none;
   }
 
   div:nth-child(1) {

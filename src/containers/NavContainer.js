@@ -15,8 +15,6 @@ const NavContainer = () => {
 
   // 이벤트 처리
   const handler = (e) => {
-    console.log('e', e.target.dataset.kind);
-
     // 회원가입/로그인
     if (e.target.dataset.kind === 'login') {
       setLogged(true);
@@ -74,12 +72,6 @@ const NavContainer = () => {
       setState({ ...state, explore: false });
     }
   };
-
-  // 회원가입/로그인
-  // const login = () => {
-  //   setLogged(true);
-  //   window.localStorage.setItem('login', true);
-  // };
 
   // 로그아웃
   const logout = () => {

@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import wanted from '../images/wanted.png';
 
-const Burger = ({ check, state }) => {
+const Reduction = ({ check, burger, logout, handler, profile }) => {
   return (
-    <Container state={state}>
+    <Container burger={burger} profile={profile.toString()}>
       <Wrapper>
         <div>
           <a href="/">
@@ -16,7 +16,7 @@ const Burger = ({ check, state }) => {
             </button>
           </a>
         </div>
-        {!check ? (
+        {check ? (
           <ul>
             <li>
               <a href="/mywanted">
@@ -66,7 +66,7 @@ const Burger = ({ check, state }) => {
               </a>
             </li>
             <li>
-              <a href="/logout">
+              <a href="/logout" onClick={logout}>
                 <span>로그아웃</span>
               </a>
             </li>
@@ -74,7 +74,11 @@ const Burger = ({ check, state }) => {
         ) : (
           <ul>
             <li>
-              <span>로그인</span>
+              <a href="/">
+                <span data-kind="login" onClick={handler}>
+                  로그인
+                </span>
+              </a>
             </li>
             <li>
               <a href="/cv">
@@ -125,11 +129,11 @@ const Burger = ({ check, state }) => {
   );
 };
 
-export default Burger;
+export default Reduction;
 
 // Container
 const Container = styled.div`
-  display: ${(props) => (props.state ? 'flex' : 'none')};
+  display: none;
   position: fixed;
   top: 0;
   right: 0;
@@ -143,17 +147,16 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 
-  /* @media ${(props) => props.theme.mobile} {
-    display: block;
-  } */
+  @media ${(props) => props.theme.tablet} {
+    display: ${(props) =>
+      props.profile === 'true' || props.burger ? 'flex' : 'none'};
+  }
 `;
 
 // Wrapper
 const Wrapper = styled.div`
   display: flex;
   box-shadow: none;
-  border: 1px solid #e1e2e3;
-  border-radius: 0;
   z-index: 1;
   width: 88%;
   height: 100%;
